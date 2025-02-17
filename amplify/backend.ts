@@ -3,6 +3,8 @@ import { auth } from "./auth/resource";
 import { data } from "./data/resource";
 import { Effect, Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { personalAssistantFunction, MODEL_ID } from "./functions/personal-assistant/resource";
+import { CfnApp } from "aws-cdk-lib/aws-pinpoint";
+import { Stack } from "aws-cdk-lib/core";
 
 export const backend = defineBackend({
   auth,
