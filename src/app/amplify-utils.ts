@@ -8,8 +8,6 @@ Amplify.configure(outputs);
 
 export const amplifyClient = generateClient<Schema>();
 
-import { configureAutoTrack } from 'aws-amplify/analytics';
-
 configureAutoTrack({
   // REQUIRED, turn on/off the auto tracking
   enable: true,
