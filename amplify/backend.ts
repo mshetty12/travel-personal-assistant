@@ -5,7 +5,6 @@ import { Effect, Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { personalAssistantFunction, MODEL_ID } from "./functions/personal-assistant/resource";
 import { CfnApp } from "aws-cdk-lib/aws-pinpoint";
 import { Stack } from "aws-cdk-lib/core";
-import { AwsRum, AwsRumConfig } from 'aws-rum-web';
 
 export const backend = defineBackend({
   auth,
@@ -55,30 +54,3 @@ backend.addOutput({
     }
   },
 });
-
-//RUM
-import { AwsRum, AwsRumConfig } from 'aws-rum-web';
-
-try {
-  const config: AwsRumConfig = {
-    sessionSampleRate: 1,
-    identityPoolId: "us-east-1:22658177-1abf-4d80-b14a-e203cd5c5ec7",
-    endpoint: "https://dataplane.rum.us-east-1.amazonaws.com",
-    telemetries: ["performance","errors","http"],
-    allowCookies: true,
-    enableXRay: true
-  };
-
-  const APPLICATION_ID: string = 'a0b0b239-afac-4252-bd8f-ecef00eb55cd';
-  const APPLICATION_VERSION: string = '1.0.0';
-  const APPLICATION_REGION: string = 'us-east-1';
-
-  const awsRum: AwsRum = new AwsRum(
-    APPLICATION_ID,
-    APPLICATION_VERSION,
-    APPLICATION_REGION,
-    config
-  );
-} catch (error) {
-  // Ignore errors thrown during CloudWatch RUM web client initialization
-}
