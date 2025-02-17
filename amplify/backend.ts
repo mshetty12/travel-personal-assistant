@@ -5,6 +5,7 @@ import { Effect, Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { personalAssistantFunction, MODEL_ID } from "./functions/personal-assistant/resource";
 import { CfnApp } from "aws-cdk-lib/aws-pinpoint";
 import { Stack } from "aws-cdk-lib/core";
+import { CloudwatchRum } from "./custom/cfn-custom-cw-rum/resource";
 
 export const backend = defineBackend({
   auth,
@@ -22,6 +23,21 @@ backend.personalAssistantFunction.resources.lambda.addToRolePolicy(
   })
 );
 
+/**
+ * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
+ */
+//Cloudwatch RUM Integration
+const backend = defineBackend({
+  auth,
+});
+
+new CloudwatchRum(backend.createStack("cloudWatchRum"), "cloudWatchRum", {
+  guestRole: backend.auth.resources.unauthenticatedUserIamRole,
+  identityPoolId: backend.auth.resources.cfnResources.cfnIdentityPool.attrId,
+  domain: "https://main.d1bdubijzn7imj.amplifyapp.com", // Replace with your domain as needed
+});
+
+//Pinpoint integration
 const analyticsStack = backend.createStack("analytics-stack");
 
 // create a Pinpoint app
