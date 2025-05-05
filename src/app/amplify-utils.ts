@@ -58,15 +58,15 @@ configureAutoTrack({
 
 try {
   const config: AwsRumConfig = {
+    signing: false,
     sessionSampleRate: 1,
-    identityPoolId: "us-east-1:22658177-1abf-4d80-b14a-e203cd5c5ec7",
     endpoint: "https://dataplane.rum.us-east-1.amazonaws.com",
     telemetries: ["performance","errors","http"],
     allowCookies: true,
     enableXRay: true
   };
 
-  const APPLICATION_ID: string = 'a0b0b239-afac-4252-bd8f-ecef00eb55cd';
+  const APPLICATION_ID: string = '858fa60f-f514-48f9-9719-53163cfae440';
   const APPLICATION_VERSION: string = '1.0.0';
   const APPLICATION_REGION: string = 'us-east-1';
 
